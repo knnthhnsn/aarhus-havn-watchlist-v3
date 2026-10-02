@@ -1,0 +1,234 @@
+.shell { min-width: 0; overflow: hidden; border: 1px solid var(--v-line); border-radius: 18px; color: var(--v-text); background: var(--v-surface); }
+.header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; }
+.eyebrow { display: block; color: var(--v-muted); font-size: .75rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.header h1 { margin: 7px 0 5px; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.15; letter-spacing: -.045em; font-weight: 600; }
+.header p { margin: 0; color: var(--v-muted); font-size: .75rem; }
+.header p > span { margin-inline: 6px; }
+.layers { display: flex; gap: 3px; padding: 4px; border: 1px solid var(--v-line); border-radius: 99px; }
+.layers button { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 13px; border: 0; border-radius: 99px; color: var(--v-muted); background: transparent; font-size: .76rem; font-weight: 600; cursor: pointer; transition: color .18s, background .18s; }
+.layers button svg { width: 17px; height: 17px; }
+.layers button[aria-pressed="true"] { color: var(--v-on-accent); background: var(--v-accent); }
+.layers button:not([aria-pressed="true"]):hover { color: var(--v-text); background: var(--v-elevated); }
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) 292px; min-height: 600px; border-top: 1px solid var(--v-line); }
+.mapArea { position: relative; min-width: 0; min-height: 600px; isolation: isolate; background: #dcdccc; }
+.map { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; background: #dcdccc; font-family: inherit; }
+.map :global(.leaflet-container) { font-family: inherit; }
+.map :global(.leaflet-control-attribution) { padding: 4px 8px; color: #0a3055; background: #fff; font-family: inherit; font-size: 12px; line-height: 1.4; }
+.map :global(.leaflet-control-attribution) a { color: #0a3055; }
+.map :global(.leaflet-tooltip) { padding: 10px 13px; max-width: min(280px, 80vw); white-space: normal; border: 1px solid var(--v-line); border-radius: 9px; color: var(--v-text); background: var(--v-surface); box-shadow: 0 4px 16px #0a0a0a20; font-family: inherit; font-size: 12px; font-weight: 600; line-height: 1.5; }
+.map :global(.leaflet-tooltip)::before { display: none; }
+.map :global(.leaflet-tooltip) { width: max-content; min-width: 180px; max-width: min(280px, calc(100vw - 48px)); word-break: normal; overflow-wrap: normal; hyphens: none; }
+.tooltipContent { display: grid; gap: 5px; }
+.tooltipContent strong { font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+.tooltipContent > span { color: var(--v-muted); font-weight: 400; }
+.tooltipContent ul { margin: 3px 0 0; padding: 0; list-style: none; display: grid; gap: 3px; }
+.tooltipContent li { font-weight: 400; overflow-wrap: anywhere; }
+.mapControls { position: absolute; z-index: 2; top: 16px; left: 16px; display: flex; flex-direction: column; gap: 10px; }
+.mapControls > div { overflow: hidden; border: 1px solid var(--v-line); border-radius: 10px; background: var(--v-surface); }
+.mapControls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--v-line); border-radius: 10px; color: var(--v-text); background: var(--v-surface); cursor: pointer; font-size: 1.4rem; }
+.mapControls > div button { border: 0; border-radius: 0; }
+.mapControls > div button + button { border-top: 1px solid var(--v-line); }
+.mapControls button:hover { background: var(--v-elevated); }
+.mapControls button svg { width: 21px; height: 21px; }
+.marker { display: grid; place-items: center; background: transparent; border: 0; }
+.markerFace { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid #0a3055; border-radius: 50%; color: #0a3055; background: #dcdccc; box-shadow: 0 2px 6px #0a30552b; font-size: 13px; font-weight: 700; transition: transform .18s; }
+.markerFace[data-status="expected"] { background: var(--v-yellow); }
+.markerFace[data-status="en-route"] { background: var(--v-blue); }
+.markerFace[data-status="arrived"] { color: #0a3055; background: #f49289; border-color: #0a3055; }
+.markerFace[data-selected="true"] { outline: 3px solid #0a3055; outline-offset: 3px; }
+.marker:hover .markerFace { transform: scale(1.12); }
+.markerFace:has(.markerVessel) { width: 36px; height: 40px; border: 0; border-radius: 8px; background: transparent; box-shadow: none; --ship-fill: #dcdccc; }
+.markerFace[data-status="expected"] { --ship-fill: var(--v-yellow); }
+.markerFace[data-status="en-route"] { --ship-fill: var(--v-blue); }
+.markerFace[data-status="arrived"] { --ship-fill: #f49289; }
+.markerVessel { display: block; width: 32px; height: 40px; overflow: visible; }
+.quayMarker { display: grid; place-items: center; background: transparent; border: 0; }
+.quayLabel { display: grid; place-items: center; min-width: 35px; min-height: 28px; padding: 4px; border: 1px solid #0a3055; border-radius: 5px; color: #0a3055; background: #dcdccc; font-size: 12px; font-weight: 700; }
+.quayLabel[data-selected="true"] { color: var(--v-on-accent); border: 2px solid var(--v-accent); background: var(--v-accent); }
+.quayLabel[data-next-quay="true"] { border: 3px solid var(--v-next-outline); background: var(--v-surface); color: var(--v-text); box-shadow: 0 0 0 2px var(--v-surface); }
+.nextQuayKey { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 10px; border: 1px solid var(--v-line); border-radius: 7px; background: var(--v-surface); color: var(--v-text); font: inherit; font-size: 12px; cursor: pointer; }
+.nextQuayKey i { width: 24px; height: 5px; border-radius: 3px; background: var(--v-next-outline); }
+.nextQuayKey svg { width: 16px; height: 16px; }
+.quayMarker:hover .quayLabel, .quayMarker:focus-visible .quayLabel { outline: 2px solid var(--v-accent); outline-offset: 2px; }
+.inspector { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid var(--v-line); background: var(--v-surface); }
+.selection { padding: 23px 22px 20px; }
+.selectionTop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.selectionTop .eyebrow { font-size: .75rem; }
+.selection h3 { margin: 18px 0 5px; color: var(--v-text); font-size: 1.38rem; font-weight: 600; line-height: 1.14; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.selection > p { margin: 0; color: var(--v-muted); font-size: .75rem; line-height: 1.55; }
+.selection > p > span { margin-inline: 3px; }
+.selection > p.positionNotice { margin-top: 12px; padding: 10px 12px; border-radius: 8px; background: var(--v-elevated); }
+.factDate { display: block; margin-top: 5px; color: var(--v-muted); letter-spacing: 0; }
+.factKind { display: inline-block; margin-top: 7px; padding: 3px 5px; border-radius: 4px; color: var(--v-text); background: var(--v-elevated); font-size: .75rem; letter-spacing: 0; line-height: 1.3; }
+.factKind[data-kind="expected"] { color: #0a3055; background: var(--v-yellow); }
+.factKind[data-kind="ordered"], .factKind[data-kind="live"] { color: #0a3055; background: var(--v-blue); }
+.factKind[data-kind="actual"] { color: #0a3055; background: #f49289; }
+.factLive { display: block; margin-top: 7px; color: var(--v-muted); font-size: .75rem; letter-spacing: 0; line-height: 1.45; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px; margin: 24px 0 20px; }
+.facts dt { margin-bottom: 5px; color: var(--v-muted); font-size: .75rem; }
+.facts dd { margin: 0; color: var(--v-text); font-size: 1.08rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.035em; }
+.facts dd small { font-size: .75rem; font-weight: 400; }
+.facts dd button { display: flex; align-items: center; gap: 6px; min-height: 44px; margin-block: -11px; padding: 3px 0; border: 0; color: var(--v-text); background: transparent; cursor: pointer; font: inherit; }
+.facts dd button:hover { text-decoration: underline; }
+.facts dd button svg { width: 14px; height: 14px; }
+.next[data-state] { padding: 13px; border-radius: 9px; background: var(--state-fill); color: var(--state-ink); box-shadow: var(--v-next-shadow); }
+.next > small { display: block; margin-top: 5px; font-size: .75rem; }
+.next > span { display: block; margin-bottom: 6px; color: inherit; font-size: .75rem; }
+.next strong { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: .8rem; font-weight: 600; }
+.next time { font-variant-numeric: tabular-nums; }
+.openButton { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 44px; margin-top: 14px; padding: 10px 13px; border: 0; border-radius: 9px; color: var(--v-on-accent); background: var(--v-accent); font-size: .75rem; font-weight: 600; cursor: pointer; transition: filter .18s; }
+.openButton:hover { filter: brightness(.92); }
+.openButton svg { width: 19px; height: 19px; }
+.vesselListHeader { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 13px 22px; border-top: 1px solid var(--v-line); color: var(--v-muted); font-size: .75rem; }
+.vesselListHeader button { min-height: 44px; padding: 2px 8px; border: 0; color: var(--v-text); background: var(--v-elevated); font-size: .75rem; cursor: pointer; border-radius: 5px; }
+.vesselList { flex: 1; overflow-y: auto; min-height: 110px; max-height: 250px; padding: 0 10px 12px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--v-line) transparent; }
+.vesselRow[data-state] { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 68px; margin-top: 7px; padding: 11px 12px; border: 2px solid transparent; border-radius: 9px; color: var(--state-ink); text-align: left; background: var(--state-fill); cursor: pointer; transition: transform 160ms, box-shadow 160ms; }
+.vesselCopy { flex: 1; min-width: 0; }
+.vesselRow strong { display: block; font-size: .75rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vesselRow small { display: block; margin-top: 4px; color: inherit; font-size: .75rem; }
+.vesselRow > svg { width: 17px; height: 17px; color: inherit; }
+.vesselRow[aria-pressed="true"] { border-color: var(--state-ink); box-shadow: inset 0 0 0 1px var(--state-ink); }
+.selectedVessel { display: flex; align-items: center; flex-direction: column; gap: 1px; flex-shrink: 0; font-size: 10px; font-weight: 700; }
+.selectedVessel > svg { width: 18px; height: 18px; }
+.shell .vesselRow:focus-visible { outline: 3px solid var(--state-ink); outline-offset: -6px; }
+@media (hover: hover) { .vesselRow:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 2px var(--state-ink); } }
+.footer { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 14px 24px; border-top: 1px solid var(--v-line); }
+.legend { display: flex; flex-wrap: wrap; gap: 7px; padding-block: 3px; }
+.sources { max-width: 450px; color: var(--v-muted); font-size: .75rem; }
+.sources summary { width: fit-content; min-height: 44px; align-content: center; padding-block: 3px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.sources p { max-width: 55ch; font-size: .75rem; line-height: 1.65; }
+.sources a { color: var(--v-text); }
+.tileError { position: absolute; z-index: 3; bottom: 36px; left: 16px; right: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 13px; border: 1px solid var(--v-line); border-radius: 9px; color: var(--v-text); background: var(--v-surface); font-size: .75rem; }
+.tileError button { min-height: 36px; padding: 7px 12px; border: 1px solid var(--v-line); border-radius: 6px; color: var(--v-text); background: var(--v-elevated); cursor: pointer; }
+.routeLegend { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; min-width: 0; padding: 12px 20px; border-top: 1px solid var(--v-line); color: var(--v-text); background: var(--v-surface); font-size: .75rem; overflow-wrap: anywhere; }
+.routeLegend > span { display: flex; align-items: center; gap: 6px; }
+.routeLegend i { width: 20px; border-top: 3px solid var(--v-green, #005758); }
+.routeLegend > span[data-planned="true"] i { border-top-color: var(--v-text); border-top-style: dashed; }
+.routeLegend strong { flex-basis: 100%; }
+.routeLegend button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--v-line); border-radius: 6px; color: var(--v-text); background: var(--v-elevated); font: inherit; font-weight: 600; }
+.empty { margin: auto; padding: 25px; color: var(--v-muted); font-size: .82rem; line-height: 1.6; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.quayToolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 10px 24px; border-top: 1px solid var(--v-line); background: var(--v-elevated); }
+.quayPicker { display: flex; align-items: center; flex: 0 1 245px; min-width: 160px; gap: 8px; padding-left: 12px; border: 1px solid var(--v-line); border-radius: 9px; background: var(--v-surface); }
+.quayPicker > svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--v-muted); }
+.quayPicker select { width: 100%; min-width: 0; min-height: 44px; padding: 6px 9px 6px 0; border: 0; border-radius: 9px; color: var(--v-text); background: var(--v-surface); font: inherit; font-size: .8125rem; cursor: pointer; }
+.quayPicker:focus-within, .quaySearch:focus-within { outline: 2px solid var(--v-accent); outline-offset: 2px; }
+.quayPicker select:focus-visible, .quaySearch input:focus-visible { outline: 0; }
+.activeQuayFilter { display: flex; align-items: center; max-width: 100%; min-height: 44px; border: 1px solid var(--v-line); border-radius: 9px; color: var(--v-text); background: var(--v-surface); }
+.activeQuayFilter > span { display: flex; align-items: center; gap: 7px; min-width: 0; padding-left: 11px; font-size: .8125rem; font-weight: 600; overflow-wrap: anywhere; }
+.activeQuayFilter svg { flex: 0 0 auto; width: 17px; height: 17px; }
+.activeQuayFilter button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 8px; color: var(--v-muted); background: transparent; cursor: pointer; }
+.activeQuayFilter button:hover { color: var(--v-text); background: var(--v-elevated); }
+.mapCount { margin-left: auto; color: var(--v-muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.directoryButton, .findQuay, .quayListLink, .backToQuay { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--v-line); border-radius: 9px; color: var(--v-text); background: var(--v-surface); font: inherit; font-size: .75rem; font-weight: 600; cursor: pointer; }
+.directoryButton svg, .findQuay svg, .quayListLink svg, .backToQuay svg { width: 17px; height: 17px; flex: 0 0 auto; }
+.directoryButton:hover, .findQuay:hover, .backToQuay:hover { background: var(--v-elevated); }
+.quayDirectory { min-width: 0; padding: 22px 16px 12px; }
+.directoryHeading { padding-inline: 6px; }
+.directoryHeading h2 { margin: 8px 0; color: var(--v-text); font-size: 1.4rem; font-weight: 600; letter-spacing: -.04em; }
+.directoryHeading p { margin: 0 0 18px; color: var(--v-muted); font-size: .8125rem; line-height: 1.5; }
+.quaySearch { display: flex; align-items: center; gap: 8px; margin: 0 6px 12px; padding: 0 10px; border: 1px solid var(--v-line); border-radius: 9px; background: var(--v-elevated); }
+.quaySearch svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--v-muted); }
+.quaySearch input { width: 100%; min-width: 0; min-height: 44px; padding: 8px 0; border: 0; color: var(--v-text); background: transparent; font: inherit; font-size: .8125rem; }
+.quaySearch input::placeholder { color: var(--v-muted); opacity: 1; }
+.quayList { max-height: 400px; overflow-y: auto; padding: 4px; scrollbar-width: thin; scrollbar-color: var(--v-line) transparent; }
+.quayRow { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 64px; padding: 11px 7px; border: 0; border-radius: 8px; text-align: left; color: var(--v-text); background: transparent; font: inherit; cursor: pointer; }
+.quayRow > strong { flex: 0 0 54px; font-size: .8125rem; font-weight: 600; }
+.quayRow > span { flex: 1; min-width: 0; font-size: .75rem; }
+.quayRow small { display: block; margin-top: 4px; color: var(--v-muted); font-size: .75rem; line-height: 1.4; }
+.quayRow > svg { width: 15px; height: 15px; flex: 0 0 auto; color: var(--v-muted); }
+.quayRow:hover, .quayRow:focus-visible { background: var(--v-elevated); }
+.quaySelection { min-width: 0; padding: 22px; }
+.quaySelectionHeader { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.quaySelectionHeader h2 { margin: 7px 0 0; font-size: 2rem; line-height: 1.15; font-weight: 600; letter-spacing: -.05em; }
+.quayZoom { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; padding: 0; border: 1px solid var(--v-line); border-radius: 9px; color: var(--v-text); background: var(--v-surface); cursor: pointer; }
+.quayZoom svg { width: 20px; height: 20px; }
+.quayZoom:hover { background: var(--v-elevated); }
+.quayLocation { margin: 12px 0 18px; color: var(--v-text); font-size: .8125rem; line-height: 1.5; }
+.quayLocation > span { display: block; color: var(--v-muted); font-size: .75rem; }
+.quayStats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0; }
+.quayStats > div { padding: 12px; border: 1px solid var(--v-line); border-radius: 10px; background: var(--v-elevated); }
+.quayStats dt { color: var(--v-muted); font-size: .75rem; }
+.quayStats dd { margin: 5px 0 0; font-size: 1.65rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.quayScope { margin: 12px 0 18px; color: var(--v-muted); font-size: .75rem; line-height: 1.5; }
+.quayScope > span { display: block; margin-top: 5px; color: var(--v-text); }
+.quayCalls { max-height: 335px; overflow-y: auto; margin-inline: -4px; padding-inline: 4px; scrollbar-width: thin; scrollbar-color: var(--v-line) transparent; }
+.quayCalls section + section { margin-top: 18px; }
+.quayCalls h3 { display: flex; align-items: center; gap: 7px; margin: 0 0 5px; color: var(--v-muted); font-size: .75rem; font-weight: 600; }
+.quayCalls h3 > span { font-variant-numeric: tabular-nums; }
+.quayCall { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 60px; padding: 10px 8px; border: 0; border-radius: 8px; color: var(--v-text); text-align: left; background: transparent; font: inherit; cursor: pointer; }
+.quayCall > span { flex: 1; min-width: 0; }
+.quayCall strong { display: block; font-size: .8125rem; font-weight: 600; overflow-wrap: anywhere; }
+.quayCall small { display: block; margin-top: 5px; color: var(--v-muted); font-size: .75rem; line-height: 1.4; }
+.quayCall > svg { width: 17px; height: 17px; flex: 0 0 auto; color: var(--v-muted); }
+.quayCall:hover, .quayCall:focus-visible { background: var(--v-elevated); }
+.quayListLink { width: 100%; margin-top: 16px; color: var(--v-on-accent); border-color: var(--v-accent); background: var(--v-accent); }
+.quayListLink:hover { filter: brightness(.92); }
+.findQuay { width: 100%; margin-top: 10px; }
+.backToQuay { justify-content: flex-start; width: fit-content; margin-bottom: 16px; }
+.emptyQuay { margin-top: 18px; padding: 18px 14px; border-radius: 10px; background: var(--v-elevated); }
+.emptyQuay > svg { width: 26px; height: 26px; margin-bottom: 12px; color: var(--v-muted); }
+.emptyQuay > strong { display: block; font-size: .875rem; font-weight: 600; line-height: 1.5; }
+.emptyQuay p, .quayNoPosition { color: var(--v-muted); font-size: .75rem; line-height: 1.5; }
+.emptyQuay button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--v-line); border-radius: 8px; color: var(--v-text); background: var(--v-surface); font: inherit; font-size: .75rem; cursor: pointer; }
+.shell button:focus-visible, .sources summary:focus-visible, .map :global(.leaflet-marker-icon):focus-visible { outline: 2px solid var(--v-accent); outline-offset: 3px; }
+:global(html[data-theme="dark"]) .map :global(.leaflet-tile-pane) { filter: brightness(.56) saturate(.45); }
+:global(html[data-theme="dark"]) .mapArea, :global(html[data-theme="dark"]) .map { background: #203f5d; }
+:global(html[data-theme="dark"]) .markerFace[data-selected="true"] { outline-color: #dcdccc; }
+:global(html[data-theme="dark"]) .routeLegend i { border-top-color: #c9dbf5; }
+:global(html[data-theme="dark"]) .routeLegend > span[data-planned="true"] i { border-top-color: #dcdccc; }
+@media (max-width: 1100px) { .workspace { grid-template-columns: minmax(0, 1fr) 280px; } .header { padding: 20px; } .selection { padding: 20px 18px; } .quayToolbar { padding-inline: 20px; } .quaySelection { padding: 20px 18px; } }
+@media (max-width: 700px) {
+  .shell { border-radius: 14px; }
+  .header { gap: 12px; padding: 15px 14px 12px; }
+  .header > div > .eyebrow { display: none; }
+  .header h1 { margin-top: 0; font-size: 1.3rem; }
+  .layers { width: 100%; }
+  .layers button { flex: 1; min-height: 44px; padding-inline: 9px; }
+  .workspace { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .mapArea { min-height: 300px; height: clamp(300px, 46svh, 430px); }
+  .mapControls { top: 12px; left: 12px; }
+  .quayToolbar { gap: 8px; padding: 9px 12px; }
+  .quayPicker { flex: 1 1 145px; min-width: 130px; }
+  .activeQuayFilter { flex: 0 1 auto; }
+  .activeQuayFilter > span { font-size: .75rem; }
+  .activeQuayFilter > span > svg { display: none; }
+  .directoryButton { padding-inline: 10px; }
+  .mapCount { display: none; }
+  .quayDirectory { padding: 20px 14px 14px; }
+  .quayList { max-height: 300px; }
+  .quayRow { padding-inline: 9px; }
+  .quayRow > strong { flex-basis: 70px; }
+  .quaySelection { padding: 20px; }
+  .quaySelectionHeader h2 { font-size: 1.8rem; }
+  .quayLocation { margin-block: 8px 15px; }
+  .quayLocation > span { display: inline; margin-left: 9px; }
+  .quayStats > div { padding: 11px 13px; }
+  .quayStats dd { font-size: 1.5rem; }
+  .quayScope { margin-block: 10px 15px; }
+  .quayCalls { max-height: 250px; }
+  .inspector { max-height: none; border-left: 0; border-top: 1px solid var(--v-line); }
+  .selection { padding: 20px; }
+  .selection h3 { font-size: 1.5rem; margin-top: 14px; }
+  .selection > p { font-size: .75rem; }
+  .selectionTop .eyebrow, .status { font-size: .75rem; }
+  .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-block: 22px; }
+  .facts dt { font-size: .75rem; }
+  .facts dd { font-size: 1.05rem; }
+  .facts dd button { min-height: 44px; margin-block: -11px; }
+  .next { padding: 13px 15px; }
+  .next > span { font-size: .75rem; }
+  .next strong { font-size: .84rem; }
+  .openButton { min-height: 48px; font-size: .82rem; }
+  .vesselList { display: flex; gap: 6px; min-height: 84px; max-height: none; padding-inline: 14px; padding-bottom: 16px; overflow-x: auto; overflow-y: hidden; }
+  .vesselRow[data-state] { flex: 0 0 220px; min-width: 220px; max-width: 260px; }
+  .vesselRow strong { font-size: .76rem; }
+  .vesselRow small { font-size: .75rem; }
+  .vesselListHeader { padding: 14px 20px; font-size: .75rem; }
+  .vesselListHeader button { min-height: 44px; font-size: .75rem; }
+  .footer { gap: 16px; padding: 16px 18px; }
+  .legend > span, .sources { font-size: .75rem; }
+  .sources summary { min-height: 44px; }
+}
+@media (max-width: 380px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; } }
+@media (prefers-reduced-motion: reduce) { .shell *, .markerFace { transition: none; } }

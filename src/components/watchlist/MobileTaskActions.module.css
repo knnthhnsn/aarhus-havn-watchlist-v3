@@ -1,0 +1,486 @@
+.taskList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 10px 10px;
+  overflow-x: clip;
+  list-style: none;
+}
+
+.taskItem {
+  --task-surface: var(--legacy-ordered-bg);
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 86px;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid #3e587b;
+  border-radius: 14px;
+  background: var(--panel);
+  touch-action: pan-y;
+  transition: transform 180ms ease;
+}
+
+.taskItem[data-state="actual"] {
+  --task-surface: var(--legacy-actual-bg);
+}
+
+.taskItem[data-state="expected"] {
+  --task-surface: var(--legacy-expected-bg);
+}
+
+.taskItem[data-state="ordered"] {
+  --task-surface: var(--legacy-ordered-bg);
+}
+
+.taskItem[data-dragging="true"] {
+  transition: none;
+}
+
+.taskItem[data-updated="true"] {
+  animation: taskPulse 420ms ease;
+}
+
+.taskMain {
+  --muted: var(--legacy-ink);
+  --text: var(--legacy-ink);
+  --accent: #0a3055;
+  min-width: 0;
+  padding: 9px 10px 10px;
+  color: var(--legacy-ink);
+  background: var(--task-surface);
+}
+
+.taskKicker,
+.taskHeading,
+.taskTimeRow,
+.taskMeta {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.taskKicker {
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.taskHeading {
+  gap: 8px;
+}
+
+.taskType {
+  min-width: 0;
+  overflow: hidden;
+  font-size: .84rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taskState {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .61rem;
+  font-weight: 800;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.taskState i {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.nextBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: #eeeee7;
+  background: #001f3d;
+  font-size: .56rem;
+  font-weight: 800;
+  letter-spacing: .055em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.taskSequence,
+.taskProgress {
+  color: #203f5d;
+  font-size: .58rem;
+  font-weight: 750;
+  letter-spacing: .045em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.taskTimeRow {
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 7px;
+  font-size: .7rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.taskTimeIcon {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  color: #0a3055;
+}
+
+.taskTimeRow time {
+  white-space: nowrap;
+}
+
+.registrationTime,
+.liveEta {
+  font-size: .64rem;
+  font-weight: 750;
+}
+
+.taskMeta {
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 7px;
+  overflow: hidden;
+}
+
+.taskAction {
+  min-width: 86px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  align-self: stretch;
+  padding: 0 9px;
+  border: 0;
+  border-left: 1px solid #3e587b;
+  color: #eeeee7;
+  background: #0a3055;
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 750;
+  transition: background-color 160ms ease;
+}
+
+.taskAction:hover {
+  background: #203f5d;
+}
+
+.taskAction > svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.taskAction > span {
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.statusTray {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid #3e587b;
+  background: var(--panel);
+}
+
+.trayHeader {
+  grid-column: 1 / -1;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.trayLabel {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--muted);
+  font-size: .61rem;
+  font-weight: 750;
+  letter-spacing: .045em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.trayLabel strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: .7rem;
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.trayClose {
+  min-width: 44px;
+  min-height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: .64rem;
+  font-weight: 750;
+}
+
+.trayClose > svg {
+  width: 14px;
+  height: 14px;
+}
+
+.statusTray > button {
+  min-width: 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 8px;
+  border: 1px solid #203f5d;
+  border-radius: 999px;
+  color: var(--legacy-ink);
+  cursor: pointer;
+  font-size: .68rem;
+  font-weight: 750;
+}
+
+.status_actual {
+  border-color: var(--legacy-actual-bg);
+  background: var(--legacy-actual-bg);
+}
+
+.status_expected {
+  border-color: var(--legacy-expected-bg);
+  background: var(--legacy-expected-bg);
+}
+
+.status_ordered {
+  border-color: var(--legacy-ordered-bg);
+  background: var(--legacy-ordered-bg);
+}
+
+.statusTray > button[aria-pressed="true"] {
+  outline: 2px solid var(--legacy-ink);
+  outline-offset: -4px;
+}
+
+.taskAction:focus-visible {
+  outline: 2px solid #eeeee7;
+  outline-offset: -4px;
+}
+
+.statusTray > button:focus-visible,
+.trayClose:focus-visible {
+  outline: 2px solid #eeeee7;
+  outline-offset: 2px;
+}
+
+.taskDisclosure {
+  display: flex;
+}
+
+.taskDisclosureButton {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 4px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 750;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+
+.taskDisclosureButton:hover,
+.taskDisclosureButton:focus-visible {
+  color: var(--text);
+}
+
+.taskDisclosureButton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@keyframes taskPulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.012); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 390px) {
+  .taskList {
+    gap: 5px;
+    padding-inline: 6px;
+  }
+
+  .taskAction {
+    min-width: 78px;
+    padding-inline: 5px;
+  }
+
+  .taskItem {
+    grid-template-columns: minmax(0, 1fr) 78px;
+  }
+
+  .statusTray > button {
+    padding-inline: 5px;
+    font-size: .67rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .taskItem,
+  .taskItem[data-dragging="true"],
+  .taskItem[data-updated="true"] {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Compact table keeps one explicit registration action below the vessel
+   identity. The state-colored rail preserves context without turning the
+   control into another status chip. */
+.taskListCompact {
+  gap: 3px;
+  padding: 0;
+}
+
+.taskListCompact .taskItem {
+  display: block;
+  overflow: visible;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.taskListCompact .taskMain {
+  padding: 5px 6px;
+}
+
+.taskListCompact .taskKicker {
+  display: none;
+}
+
+.taskListCompact .taskType {
+  font-size: .64rem;
+}
+
+.taskListCompact .taskState {
+  font-size: .57rem;
+}
+
+.taskListCompact .taskTimeRow {
+  gap: 2px;
+  margin-top: 2px;
+  font-size: .6rem;
+}
+
+.taskListCompact .taskMeta {
+  gap: 2px;
+  margin-top: 3px;
+}
+
+.taskListCompact .taskAction {
+  width: 100%;
+  min-width: 0;
+  padding-inline: 9px 7px;
+  border: 1px solid #3e587b;
+  border-radius: 9px;
+  font-size: .64rem;
+  font-weight: 800;
+}
+
+.taskListCompact .taskAction > span {
+  display: inline;
+}
+
+.taskListCompact .taskAction[aria-expanded="true"] {
+  border-color: var(--task-surface);
+  color: #001f3d;
+  background: var(--task-surface);
+}
+
+.taskListCompact .statusTray {
+  position: fixed;
+  z-index: 60;
+  right: max(10px, env(safe-area-inset-right));
+  bottom: max(10px, env(safe-area-inset-bottom));
+  left: max(10px, env(safe-area-inset-left));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid #3e587b;
+  border-radius: 16px;
+  background: #0a3055;
+}
+
+.taskListCompact .trayLabel,
+.taskListCompact .trayLabel strong,
+.taskListCompact .trayClose {
+  color: #eeeee7;
+}
+
+.taskListCompact .trayClose {
+  display: inline-flex;
+}
+
+.taskListCompact .taskItem[data-open="true"] {
+  overflow: visible;
+}
+
+.taskListCompact .taskDisclosureButton {
+  min-height: 44px;
+}
+
+.taskDisclosureButton > svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.statusTray > button > svg {
+  width: .9rem;
+  height: .9rem;
+}
+
+.taskListCompact .taskAction > svg {
+  width: .9rem;
+  height: .9rem;
+}

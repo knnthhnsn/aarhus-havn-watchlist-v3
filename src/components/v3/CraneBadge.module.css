@@ -1,0 +1,3 @@
+.badge { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; min-height: 28px; padding: 3px 7px; box-sizing: border-box; border-radius: 5px; font-size: 12px; font-weight: 700; background: transparent; color: var(--v-text); border: 1px solid var(--v-line); }
+.badge[data-crane="approved"] { background: #c5c7c9; color: #0a3055; border-color: #c5c7c9; }
+.badge[data-crane="accepted"] { background: transparent; color: var(--v-text); border-color: var(--v-line); }

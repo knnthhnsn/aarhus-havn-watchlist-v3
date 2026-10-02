@@ -1,0 +1,4 @@
+.info { position: fixed; z-index: 1000; width: min(280px, calc(100vw - 24px)); box-sizing: border-box; padding: 14px 16px; display: grid; gap: 6px; border: 1px solid #0a3055; border-radius: 10px; background: #eeeee7; color: #0a3055; box-shadow: 0 6px 20px #0003; font-family: var(--font-space-grotesk), sans-serif; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.info strong { font-size: 13px; font-weight: 700; }
+.info span { white-space: pre-line; }
+.info[data-dark="true"] { background: #0a3055; color: #eeeee7; border-color: #c9dbf5; }

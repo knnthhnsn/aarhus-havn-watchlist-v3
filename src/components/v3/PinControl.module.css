@@ -1,0 +1,19 @@
+.button[data-pin-control] { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; gap: 6px; min-width: 44px; min-height: 44px; padding: 6px 9px; border: 1px solid var(--v-muted); border-radius: 8px; background: var(--v-surface); color: var(--v-text); font: inherit; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background 160ms, color 160ms, border-color 160ms, transform 160ms; }
+.button[data-pinned="true"] { background: var(--v-accent); color: var(--v-on-accent); border-color: var(--v-accent); }
+.glyph { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; }
+.button[data-pin-control] .glyph > svg { width: 21px; height: 21px; transition: transform 160ms; }
+.button[data-pinned="true"] .glyph > svg:first-child { width: 18px; height: 18px; transform: translate(-3px, -1px); }
+.button[data-pinned="true"] .glyph > svg:first-child path:first-child { fill: currentColor; }
+.button[data-pin-control] .glyph > .check { position: absolute; right: -4px; bottom: -3px; width: 13px; height: 13px; }
+.button[data-pin-control]:focus-visible { outline: 3px solid var(--v-text); outline-offset: -5px; }
+.button[data-pinned="true"]:focus-visible { outline-color: var(--v-on-accent); }
+@media (hover: hover) {
+  .button[data-pin-control]:hover { background: var(--v-elevated); border-color: var(--v-text); }
+  .button[data-pinned="true"]:hover { background: var(--v-accent); color: var(--v-on-accent); box-shadow: inset 0 0 0 2px var(--v-on-accent); }
+  .button[data-pin-control]:hover .glyph > svg:first-child { transform: rotate(-12deg); }
+}
+.button[data-pin-control]:active { transform: scale(.96); }
+.indicator { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 1px; padding: 2px 4px; border-radius: 4px; color: var(--v-on-accent); background: var(--v-accent); }
+.indicator[data-pin-indicator] > svg { width: 13px; height: 13px; }
+.indicator > svg:first-child path:first-child { fill: currentColor; }
+@media (prefers-reduced-motion: reduce) { .button[data-pin-control], .button .glyph > svg { transition: none; } }

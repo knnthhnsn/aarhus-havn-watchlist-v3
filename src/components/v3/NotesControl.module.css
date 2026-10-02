@@ -1,0 +1,15 @@
+.button, .indicator { display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid var(--v-line); border-radius: 7px; background: transparent; color: var(--v-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.button { min-height: 36px; min-width: 44px; padding: 5px 8px; font: inherit; cursor: pointer; }
+.button b, .indicator b { font-weight: 600; }
+.button[data-notes-count] svg { width: 17px; height: 17px; flex-shrink: 0; }
+.indicator { flex-shrink: 0; gap: 3px; min-width: 32px; min-height: 22px; padding: 1px 5px; border-radius: 4px; font-size: 12px; line-height: 18px; }
+.indicator[data-notes-count] svg { width: 13px; height: 13px; flex-shrink: 0; }
+.button[data-has-notes="true"], .indicator[data-has-notes="true"] { background: var(--v-note-fill); color: var(--v-note-ink); border-color: var(--v-note-fill); }
+.button[data-has-notes="false"] { color: var(--v-muted); }
+.button:focus-visible { outline: 2px solid var(--v-text); outline-offset: 2px; }
+.button[data-has-notes="true"]:focus-visible { outline: 2px solid var(--v-note-ink); outline-offset: -4px; }
+@media (hover: hover) {
+  .button:hover { background: var(--v-row-hover); border-color: var(--v-muted); }
+  .button[data-has-notes="true"]:hover { background: var(--v-note-hover); color: var(--v-note-ink); border-color: var(--v-note-hover); }
+}
+@media (max-width: 760px) { .button { min-height: 44px; padding-inline: 7px; font-size: 12px; } }

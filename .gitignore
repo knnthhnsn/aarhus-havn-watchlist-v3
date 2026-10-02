@@ -1,0 +1,30 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# local tooling
+.DS_Store
+Thumbs.db
+*.log
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# test output
+/coverage/
+
+# generated review output
+/output/
+/outputs/
+/tmp/
+
+.vercel

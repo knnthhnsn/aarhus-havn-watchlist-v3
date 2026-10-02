@@ -1,0 +1,7 @@
+.surface { --state-fill: var(--v-elevated); --state-ink: var(--v-text); background: var(--state-fill); color: var(--state-ink); }
+.surface[data-state="expected"] { --state-fill: var(--v-yellow); --state-ink: #0a3055; }
+.surface[data-state="ordered"], .surface[data-state="en-route"] { --state-fill: var(--v-blue); --state-ink: #0a3055; }
+.surface[data-state="actual"] { --state-fill: #f49289; --state-ink: #0a3055; }
+.surface[data-state="arrived"] { --state-fill: #f49289; --state-ink: #0a3055; }
+.surface[data-state="live"] { --state-fill: var(--v-accent); --state-ink: var(--v-on-accent); }
+.badge { display: inline-flex; align-items: center; justify-content: center; width: fit-content; padding: 5px 9px; border-radius: 5px; font-size: 12px; line-height: 1.35; font-weight: 600; white-space: nowrap; }

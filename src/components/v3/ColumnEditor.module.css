@@ -1,0 +1,13 @@
+.hint { color: var(--v-muted); font-size: 12px; line-height: 1.5; }
+.list { max-height: 60dvh; overflow-y: auto; overscroll-behavior: contain; }
+.row { display: flex; align-items: center; gap: 8px; min-height: 48px; border-radius: 7px; border: 2px solid transparent; }
+.row label { display: flex; align-items: center; gap: 10px; flex: 1; min-height: 44px; min-width: 0; }
+.row button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 6px; background: transparent; color: var(--v-text); cursor: pointer; }
+.row button:disabled { opacity: .25; cursor: default; }
+.row .handle { cursor: grab; touch-action: none; user-select: none; color: var(--v-muted); }
+.spacer { width: 44px; flex-shrink: 0; }
+.actions { display: flex; }
+.row[data-dragging="true"] { opacity: .55; background: var(--v-elevated); }
+.row[data-target="true"] { border-color: var(--v-accent); background: var(--v-elevated); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (hover: hover) { .row button:not(:disabled):hover { background: var(--v-elevated); } }
