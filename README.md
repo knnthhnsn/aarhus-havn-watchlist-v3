@@ -1,10 +1,25 @@
 # Vessel Schedule · V3
 
-An independent V3 website for Aarhus Havn's port-call workflow. V3 provides a full-width, 21-field sortable table, compact mobile swipe rows with a saved table alternative, interactive/filterable harbour quays and an accessible call-detail workspace.
+A responsive V3 prototype for Aarhus Havn's port-call workflow. The desktop list supports comparison across calls; mobile task cards bring the next operation, placement and time together. Search, filters, harbour views and call details support the surrounding workflow.
 
 Live: [Vessel Schedule V3](https://aarhus-havn-watchlist-v3.vercel.app/watchlist).
 
 The running application uses fictional operational fixtures. Its interface is designed as a finished product; the technical boundaries below describe what the implementation actually does.
+
+## Project documentation
+
+| Resource | What to inspect |
+| --- | --- |
+| [Figma start](https://www.figma.com/design/q7QXrLW1INpHt5ilAs9Tia?node-id=1424-1646) | Current desktop/mobile screens, version references and product presentation |
+| [FigJam start](https://www.figma.com/board/mFOLGwvkRvWNoyo5IDFNEK?node-id=108-153) | Source-separated research summaries, feedback traceability, timeline and proposed task evaluation |
+| [Development handoff](https://aarhus-havn-watchlist-handoff.vercel.app/) | Proposed production data fields, relations, rules, assets and open integration decisions |
+| [Design notes](docs/V3_DESIGN.md) | Interface structure and interaction decisions |
+| [Dated verification notes](docs/V3_QA.md) | Recorded local/browser checks and their scope |
+| [Historical performance notes](docs/V3_PERFORMANCE.md) | Local synthetic Lighthouse results from 5 September 2026 |
+
+The Figma and FigJam resources may require file access. Research summaries are later documentation of the work; they are not evidence of a fully linear research-before-code process. The handoff is a proposal for discussion with Aarhus Havn and the development partner, not an accepted production data contract.
+
+The Lighthouse figures are preserved local results, not measurements of the current Vercel deployment or proof of field performance. An automated accessibility score is also not complete WCAG validation.
 
 ## Run locally
 
@@ -33,10 +48,10 @@ The `next/font` build fetches Space Grotesk and serves the resulting font files 
 ## What V3 contains
 
 - Desktop and mobile sortable table, or dense mobile swipe rows, with Fuld / Kontor / Havn information presets.
-- Independent OPS in every preset: shifting, assistance and anchorage, including next-task and completed entries; normal inline details and compact disclosure.
+- Per-operation arrival, shifting, assistance, anchorage and departure information, with next-task emphasis, normal inline details and compact disclosure. OPS. indicates attention points; Handling identifies an operation.
 - Structural normal/compact density: lower table/phone row heights, secondary details in an action tray, and fewer phone summary elements.
 - Search, status and berth filters; shift, all-call, pinned and attention scopes; sortable columns; configurable column visibility/order; pagination.
-- Consistent expected, ordered, live-estimate and actual time labels. Berth labels remain separate from operational status colours.
+- Separate planned time and Live ETA, with operational status colours. Repeated visible status words vary by view; colour-independent understanding still needs user and accessibility evaluation.
 - Pinning, warning explanations, current/upcoming placements and next actionable operations.
 - A four-tab call dialog: Anløb, Tidslinje, Skib and Noter. On phones it becomes a full-height sheet.
 - A code-split Leaflet harbour map with traffic, quay and route views, selected-vessel details, a keyboard-accessible vessel list and basemap failure feedback.
